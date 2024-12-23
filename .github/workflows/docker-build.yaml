@@ -23,7 +23,7 @@ jobs:
       matrix:
         platform:
           - linux/amd64
-          - linux/arm64
+          # - linux/arm64
 
     steps:
       # GitHub Packages requires the entire repository name to be in lowercase
