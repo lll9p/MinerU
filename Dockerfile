@@ -40,7 +40,8 @@ RUN /bin/bash -c "source /opt/mineru_venv/bin/activate && \
 RUN /bin/bash -c "wget https://github.com/opendatalab/MinerU/raw/master/magic-pdf.template.json && \
     cp magic-pdf.template.json /root/magic-pdf.json && \
     source /opt/mineru_venv/bin/activate && \
-    pip3 install -U magic-pdf"
+    pip3 install -U magic-pdf && \
+    pip3 cache purge"
 
 # Download models and update the configuration file
 RUN /bin/bash -c "pip3 install huggingface_hub && \
