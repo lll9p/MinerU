@@ -32,7 +32,7 @@ RUN python3 -m venv /opt/mineru_venv
 RUN /bin/bash -c "source /opt/mineru_venv/bin/activate && \
     pip3 install --upgrade pip && \
     wget https://github.com/opendatalab/MinerU/raw/master/docker/global/requirements.txt -O requirements.txt && \
-    pip3 install -r requirements.txt --extra-index-url https://wheels.myhloli.com && \
+    pip3 install -r requirements.txt --no-cache-dir --extra-index-url https://wheels.myhloli.com && \
     pip3 install paddlepaddle-gpu==3.0.0rc1 -i https://www.paddlepaddle.org.cn/packages/stable/cu118/ && \
     pip3 cache purge"
 
@@ -40,13 +40,8 @@ RUN /bin/bash -c "source /opt/mineru_venv/bin/activate && \
 RUN /bin/bash -c "wget https://github.com/opendatalab/MinerU/raw/master/magic-pdf.template.json && \
     cp magic-pdf.template.json /root/magic-pdf.json && \
     source /opt/mineru_venv/bin/activate && \
-    pip3 install -U magic-pdf && \
-    pip3 cache purge"
-
-# Download models and update the configuration file
-RUN /bin/bash -c "pip3 install huggingface_hub && \
-    wget https://github.com/opendatalab/MinerU/raw/master/scripts/download_models_hf.py -O download_models.py && \
-    python3 download_models.py && \
+    pip3 install -U magic-pdf --no-cache-dir && \
+    pip3 cache purge && \
     sed -i 's|cpu|cuda|g' /root/magic-pdf.json"
 
 # Set the entry point to activate the virtual environment and run the command line tool
